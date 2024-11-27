@@ -1,0 +1,39 @@
+{% extends "app_todo/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Регистрация</title>
+</head>
+
+{% block body %}
+<body>
+    <div class="container">
+        <h2>Регистрация</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if form.errors %}
+            <div class="alert alert-danger">
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            </div>
+            {% endif %}
+            
+            <button type="submit" class="btn btn-primary mt-3">Зарегистрироваться</button>
+        </form>
+    </div>
+</body>
+</html>
+{% endblock body %}

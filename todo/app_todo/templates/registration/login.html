@@ -1,0 +1,37 @@
+{% extends "app_todo/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Вход</title>
+</head>
+
+{% block body %}
+<body>
+    <div class="container">
+        <h2>Вход</h2>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </div>  
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary mt-3">Войти</button>
+        </form>
+    </div>
+</body>
+{% endblock body %}
+</html>

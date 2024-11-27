@@ -1,0 +1,7 @@
+/.venv
+poetry.lock
+pyproject.toml
+dump.rdb
+db.sqlite3
+/__pycache__
+/app_todo/migrations/*

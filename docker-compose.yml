@@ -1,0 +1,46 @@
+version: '3.11'
+
+services:
+  web:
+    build: ./
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app/
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.dev
+  db:
+    image: postgres:17.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=qwerty12345
+      - POSTGRES_DB=postgres
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+    
+  redis:
+    image: redis:latest
+    command: redis-server
+    volumes:
+      - ./redis-data:/data
+    ports:
+      - 6379:6379
+  celery:
+    build: . 
+    container_name: celery
+    command: celery -A todo worker --loglevel=info
+    depends_on: 
+      - redis
+      - web
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+volumes:
+  postgres_data:
+    driver: local
