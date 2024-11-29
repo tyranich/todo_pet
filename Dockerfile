@@ -8,6 +8,8 @@ RUN pip install --upgrade pip
 
 COPY ./requirements.txt .
 
+COPY ./entrypoint.sh /entrypoint.sh
+
 RUN pip install -r requirements.txt
 
 
