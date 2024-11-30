@@ -1,12 +1,9 @@
-version: '3.11'
+
 
 services:
   web:
     build: ./
-    entrypoint: ./entrypoint.sh
-    command: python manage.py migrate && python manage.py runserver 0.0.0.0:8000
-    depend_on:
-      -db
+    
     volumes:
       - .:/usr/src/app/
     ports:
@@ -14,7 +11,7 @@ services:
     env_file:
       - ./.env.dev
     command: ["/entrypoint.sh"]
-    
+  
   db:
     image: postgres:17.0-alpine
     volumes:
