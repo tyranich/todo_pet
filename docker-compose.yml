@@ -1,10 +1,9 @@
-version: '3.11'
+
 
 services:
   web:
     build: ./
-    depend_on:
-      -db
+    
     volumes:
       - .:/usr/src/app/
     ports:
@@ -12,7 +11,7 @@ services:
     env_file:
       - ./.env.dev
     command: ["/entrypoint.sh"]
-
+  
   db:
     image: postgres:17.0-alpine
     volumes:
