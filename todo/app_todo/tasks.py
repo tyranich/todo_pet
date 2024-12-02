@@ -1,5 +1,4 @@
 from celery import shared_task
-from django_celery_beat.models import PeriodicTask, PeriodicTasks
 import time
 from .models import New_Task
 import datetime

@@ -4,8 +4,6 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 class RegistrationForm(UserCreationForm):
-    #email = forms.EmailField(required=True)
-
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2']
@@ -15,7 +13,3 @@ class RegistrationForm(UserCreationForm):
         for field in self.fields.values():
             field.widget.attrs.update({'class': 'form-control'})
 
-
-#class CustomLoginForm(AuthenticationForm):
-#    username = forms.CharField(label="Имя пользователя", max_length=100)
-#    password = forms.CharField(label="Пароль", widget=forms.PasswordInput)

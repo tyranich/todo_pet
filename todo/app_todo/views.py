@@ -1,20 +1,22 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from  app_todo.models import New_Task, Rem_Task_Id
-from django.contrib.auth import authenticate, decorators, login, forms
-from django.contrib import messages
-from django.core import serializers
-import json
-from django.template.response import TemplateResponse
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound, HttpResponseNotAllowed
-import datetime
-from app_todo.tasks import reminder
+
+import logging
 import pytz
-from .forms import RegistrationForm
-from celery.result import AsyncResult
-from todo.celery import app
+import json
+import datetime
+
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-import logging
+from django.http import HttpResponse, HttpResponseNotAllowed
+from django.contrib.auth import authenticate, decorators, login, forms
+from django.core import serializers
+from django.shortcuts import render, redirect, get_object_or_404
+
+from  app_todo.models import New_Task, Rem_Task_Id
+from app_todo.tasks import reminder
+from todo.celery import app
+from .forms import RegistrationForm
+
+
 
 logger = logging.getLogger(__name__)
 
